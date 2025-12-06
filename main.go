@@ -14,13 +14,25 @@ func clear() {
 	fmt.Print("\033[H\033[2J")
 }
 
+func draw(particles []Particle) {
+	for _, p := range particles {
+		fmt.Printf("\033[0;%dH", p.column)
+		fmt.Printf(p.value)
+	}
+}
+
 func main() {
 	clear()
-	p := Particle{"X", 0}
+	p1 := Particle{"X", 50}
+	p2 := Particle{"*", 20}
 
-	for col := 0; col < 10; col++ {
-		fmt.Printf("\033[%dC", col)
-		fmt.Print(p.value)
+	scene := []Particle{p1, p2}
+
+	for range 10 {
+		for p := range scene {
+			scene[p].column++
+		}
+		draw(scene)
 		time.Sleep(500 * time.Millisecond)
 		clear()
 	}
