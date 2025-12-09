@@ -7,6 +7,7 @@ import (
 
 type Particle struct {
 	value string
+	row int
 	column int
 }
 
@@ -16,15 +17,15 @@ func clear() {
 
 func draw(particles []Particle) {
 	for _, p := range particles {
-		fmt.Printf("\033[0;%dH", p.column)
+		fmt.Printf("\033[%d;%dH", p.row, p.column)
 		fmt.Printf(p.value)
 	}
 }
 
 func main() {
 	clear()
-	p1 := Particle{"X", 50}
-	p2 := Particle{"*", 20}
+	p1 := Particle{"X", 0, 50}
+	p2 := Particle{"*", 5, 20}
 
 	scene := []Particle{p1, p2}
 
